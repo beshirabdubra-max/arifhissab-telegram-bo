@@ -531,13 +531,11 @@ function guideKeyboard(lang, key) {
 
 // ── /start ────────────────────────────────────────────────────────────────────
 bot.start(async (ctx) => {
-  const name = ctx.from?.first_name || "";
   await ctx.reply(
-    `🎉 *${name ? `${name}, ` : ""}${
-      "እንኳን ደህና መጡ አሪፍ ሂሳብ ቦቱ!\nWelcome to Arif Hissab Bot!"
-    }*\n\n` +
+    "🎉 *እንኳን ወደ አሪፍ ሂሳብ በሰላም መጡ\\!*\n" +
+    "Welcome to Arif Hissab Bot\\!\n\n" +
     "ቋንቋ ይምረጡ / Choose your language:",
-    { parse_mode: "Markdown", ...langKeyboard() }
+    { parse_mode: "MarkdownV2", ...langKeyboard() }
   );
 });
 
@@ -664,7 +662,15 @@ bot.catch((err, ctx) => {
 
 // ── Launch ────────────────────────────────────────────────────────────────────
 bot.launch()
-  .then(() => console.log(`✅ @Arifhissabbot is live — ${new Date().toISOString()}`))
+  .then(async () => {
+    console.log(`✅ @Arifhissabbot is live — ${new Date().toISOString()}`);
+    await bot.telegram.setMyCommands([
+      { command: "start", description: "ይጀምሩ / Start" },
+      { command: "menu",  description: "ዋና ማውጫ / Main Menu" },
+      { command: "help",  description: "እርዳታ / Help" },
+    ]);
+    console.log("✅ Bot commands menu updated");
+  })
   .catch((err) => { console.error("❌ Failed to start bot:", err); process.exit(1); });
 
 process.once("SIGINT",  () => bot.stop("SIGINT"));
