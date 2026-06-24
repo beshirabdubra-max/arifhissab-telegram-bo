@@ -28,7 +28,7 @@ const SECTIONS = {
       "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
       "1. በመተግበሪያው ላይ ወደ 'AI Tax Assistant' ክፍል ይግቡ።",
       "2. ማንኛውንም የ ERCA ታክስ ህግ፣ የትርፍ ስሌት ወይም የኦዲት ጥያቄ በአማርኛ ወይም በእንግሊዝኛ በጽሁፍ ይጠይቁት።",
-      "3. ለፈጣን ስሌቶች '🧮 ካልኩሌተሮች' የሚለውን በመጫን የ VAT 15%၊ የደሞዝ ታክስ (PIT) ወይም የብድር ስሌቶችን ያለ ኢንተርኔት ያካሂዱ።",
+      "3. ለፈጣን ስሌቶች '🧮 ካልኩሌተሮች' የሚለውን በመጫን የ VAT 15%፣ የደሞዝ ታክስ (PIT) ወይም የብድር ስሌቶችን ያለ ኢንተርኔት ያካሂዱ።",
       "",
       "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
       "• *AI Tax Assistant (Claude AI):* የኢትዮጵያን የገቢዎች ታክስ አዋጅና ደንብ መነሻ በማድረግ ፈጣን ማብራሪያ የሚሰጥ የቴክኖሎጂ ረዳት ነው።",
@@ -335,7 +335,7 @@ const SECTIONS = {
     guide_am: [
       "❓ *እርዳታ & የ ERCA ጥያቄዎች*",
       "",
-      "📌 *መመሪያ (ተደጋግመው የሚነሱ ጥያቄዎች):*",
+      "📌 *መመሪያ (ተደጋግመው የሚነሱጥያቄዎች):*",
       "• *ጥያቄ:* ኢንተርኔት በሌለበት ቦታ (Offline) አፑ ይሰራል?",
       "  *መልስ:* አዎ! ፋክቱርና ደረሰኝ ለመቁረጥ፣ ምርት ለመመዝገብ እና ካልኩሌተሮችን ለመጠቀም ኢንተርኔት አያስፈልግም። ዳታው ስልክዎ ላይ ይያዝና ኢንተርኔት ሲያገኝ በራሱ ከዳመና ጋር ይገናኛል።",
       "• *ጥያቄ:* መረጃዬ በደህንነት ይጠበቃል? ለ ERCA ይላካል?",
@@ -419,19 +419,19 @@ function mainMenuKeyboard(lang) {
       Markup.button.callback("🧾 " + (am ? "ፋክቱርና ደረሰኝ"     : "Invoices & Receipts"), "sec_invoices"),
     ],
     [
-      Markup.button.callback("📤 " + (am ? "ወጪዎች"             : "Expenses"),            "sec_expenses"),
+      Markup.button.callback("📤 " + (am ? "ወጪዎች"             : "Expenses"),             "sec_expenses"),
       Markup.button.callback("📦 " + (am ? "ምርቶች & አቅራቢዎች"  : "Stock & Suppliers"),   "sec_stock"),
     ],
     [
-      Markup.button.callback("📓 " + (am ? "የሒሳብ አያያዝ"       : "Accounting Books"),    "sec_accounting"),
+      Markup.button.callback("📓 " + (am ? "የሒሳብ አያያዝ"       : "Accounting Books"),     "sec_accounting"),
       Markup.button.callback("💰 " + (am ? "ደሞዝ & ሰራተኞች"    : "HR & Payroll"),        "sec_payroll"),
     ],
     [
       Markup.button.callback("📊 " + (am ? "ሪፖርቶች & ታክስ"     : "Reports & Tax"),       "sec_reports"),
-      Markup.button.callback("🏪 " + (am ? "ቅርንጫፎች"          : "Branches"),            "sec_branches"),
+      Markup.button.callback("🏪 " + (am ? "ቅርንጫፎች"          : "Branches"),             "sec_branches"),
     ],
     [
-      Markup.button.callback("❓ " + (am ? "እርዳታ & FAQ"        : "Help & FAQ"),          "sec_faq"),
+      Markup.button.callback("❓ " + (am ? "እርዳታ & FAQ"        : "Help & FAQ"),           "sec_faq"),
       Markup.button.callback("📱 " + (am ? "አፕሊኬሽን አውርድ"     : "Download App"),        "sec_app_download"),
     ],
     [
