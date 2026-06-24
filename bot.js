@@ -1,4 +1,3 @@
-// Arif Hissab Telegram Bot — @Arifhissabbot
 require("dotenv").config();
 const { Telegraf, Markup } = require("telegraf");
 
@@ -7,468 +6,399 @@ const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 // ── Constants ────────────────────────────────────────────────────────────────
 const YOUTUBE = "https://www.youtube.com/channel/UCHUeanvcwYYJlp1kZd5iaJw";
 const APP_URL = "https://arifhissab.com";
-const SUPPORT  = "https://t.me/Arifhissabbot";
+const SUPPORT = "https://t.me/your_telegram_username"; // 💡 የእርስዎን ቴሌግራም ዩዘርኔም እዚህ ያስገቡ
 
-// Per-user language preference (in-memory; survives restarts via /start re-select)
+// Per-user language preference (in-memory)
 const userLang = new Map();
 
 const getLang = (ctx) => userLang.get(ctx.from?.id) || "am";
 const setLang  = (id, lang) => userLang.set(id, lang);
 
-// ── Section content ──────────────────────────────────────────────────────────
+// ── Section content with perfect Amharic & English Structure ──────────────────
 const SECTIONS = {
-  invoices: {
-    emoji: "🧾",
-    title_am: "ፋክቱር & ሽያጭ",
-    title_en: "Invoices & Sales",
+  // 1. AI & Tools
+  ai_tools: {
+    emoji: "🤖",
+    title_am: "AI & መሳሪያዎች (AI Tax & Calculators)",
+    title_en: "AI & Tools",
     video:    YOUTUBE,
     guide_am: [
-      "🧾 *ፋክቱር & ሽያጭ — መመሪያ*",
+      "🤖 *AI & መሳሪያዎች — መመሪያ*",
       "",
-      "📌 *አዲስ ፋክቱር ለመፍጠር:*",
-      "1. \'ፋክቱሮች\' ሞጁል ክፈት",
-      "2. \'+ ፋክቱር\' ቁልፍ ተጫን",
-      "3. ደምበኛ ምረጥ ወይም አዲስ ፍጠር",
-      "4. ምርቶች / አገልግሎቶች ጨምር",
-      "5. VAT 15% ሰምጦ ይሰላል",
-      "6. \'አስቀምጥ\' ቁልፍ ተጫን",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. በመተግበሪያው ላይ ወደ 'AI Tax Assistant' ክፍል ይግቡ።",
+      "2. ማንኛውንም የ ERCA ታክስ ህግ፣ የትርፍ ስሌት ወይም የኦዲት ጥያቄ በአማርኛ ወይም በእንግሊዝኛ በጽሁፍ ይጠይቁት።",
+      "3. ለፈጣን ስሌቶች '🧮 ካልኩሌተሮች' የሚለውን በመጫን የ VAT 15%၊ የደሞዝ ታክስ (PIT) ወይም የብድር ስሌቶችን ያለ ኢንተርኔት ያካሂዱ።",
       "",
-      "📌 *ሁኔታ ወደ \'ተከፈለ\' ለመቀየር:*",
-      "• ፋክቱሩን ክፈት → \'ክፍያ ምልክት\' ቁልፍ",
-      "• ክፍያ ዘዴ: ጥሬ ፣ CBE ፣ Telebirr",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *AI Tax Assistant (Claude AI):* የኢትዮጵያን የገቢዎች ታክስ አዋጅና ደንብ መነሻ በማድረግ ፈጣን ማብራሪያ የሚሰጥ የቴክኖሎጂ ረዳት ነው።",
+      "• *የመቆራረጫ ነጥብ (Break-Even Point):* ንግዱ ኪሳራም ሆነ ትርፍ ሳይኖረው፣ የወጣውን ወጪ ብቻ ሙሉ በሙሉ መመለስ የቻለበት የሽያጭ መጠን ነው።",
       "",
-      "📌 *ፋክቱር ለማጋራት:*",
-      "• WhatsApp ወይም Email በኩል",
-      "",
-      "💡 VAT 15% ሁሌም ተካቷል",
-      "💡 ቁጥር: INV-000001 (ያለማቋረጥ)",
-      "💡 ERCA ደምቦቹን ሙሉ ያሟላል",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "ውድ የሂሳብ አማካሪዎችን ሳያስፈልግዎ የ ERCA ህጎችን በራስዎ ቋንቋ በፍጥነት ለመረዳት ይረዳል። ካልኩሌተሮቹ የታክስ ስህተቶችን አስቀድመው በማስላት ከቅጣት ይጠብቁዎታል።",
     ].join("\n"),
     guide_en: [
-      "🧾 *Invoices & Sales — Guide*",
+      "🤖 *AI & Tools — Guide*",
       "",
-      "📌 *Create an Invoice:*",
-      "1. Open 'Invoices' module",
-      "2. Tap '+ Invoice'",
-      "3. Select or create a customer",
-      "4. Add products / services",
-      "5. VAT 15% calculated automatically",
-      "6. Tap 'Save'",
+      "📌 *Step-by-Step Guide:*",
+      "1. Open the 'AI Tax Assistant' section in the app.",
+      "2. Type any ERCA tax law, profit calculation, or audit question in Amharic or English.",
+      "3. For quick math, open '🧮 Calculators' to compute 15% VAT, Income Tax (PIT), or loans offline.",
       "",
-      "📌 *Mark as Paid:*",
-      "• Open invoice → tap 'Mark Paid'",
-      "• Choose: Cash / CBE / Telebirr",
-      "• Cash/CBE/Telebirr → updates COA balance",
+      "📌 *Vocabulary & Definitions:*",
+      "• *AI Tax Assistant (Claude AI):* An intelligent assistant trained on Ethiopian tax regulations to provide instant answers.",
+      "• *Break-Even Point:* The sales volume where total revenue exactly equals total business expenses (no profit, no loss).",
       "",
-      "📌 *Share Invoice:*",
-      "• Via WhatsApp or Email",
-      "",
-      "💡 VAT 15% always included",
-      "💡 Sequential numbering: INV-000001",
-      "💡 Fully ERCA compliant format",
+      "💡 *How this section helps:*",
+      "Saves expensive consultancy fees by providing instant tax answers. The offline calculators eliminate manual errors and keep your pricing accurate.",
     ].join("\n"),
   },
 
+  // 2. Invoices & Receipts
+  invoices: {
+    emoji: "🧾",
+    title_am: "ፋክቱርና ደረሰኝ",
+    title_en: "Invoices & Receipts",
+    video:    YOUTUBE,
+    guide_am: [
+      "🧾 *ፋክቱርና ደረሰኝ — መመሪያ*",
+      "",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'ፋክቱርና ደረሰኝ' (Sales) ገጽ በመግባት '+ አዲስ ደረሰኝ' የሚለውን ይጫኑ።",
+      "2. ደንበኛ ይምረጡ፤ ከዚያም የተሸጡትን ዕቃዎች ወይም አገልግሎቶች ከዝርዝሩ ውስጥ ይጨምሩ።",
+      "3. ስርዓቱ የ 15% VAT ታክስን በራስ-ሰር ያሰላል； በመጨረሻም 'አስቀምጥ' የሚለውን በመጫን ህጋዊ ፋክቱርና ደረሰኝ ያውጡ።",
+      "4. ለሽያጭ ጨረታዎች '📋 ሽያጭ እና ግዢ ጨረታ' (Estimates) የሚለውን ይጠቀሙ።",
+      "",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ሽያጭ (Sales):* በሱቁ ውስጥ ለደንበኞች ዕቃ በመሸጥ የሚሰበሰብ ጠቅላላ የንግድ ገቢ (Revenue) ነው።",
+      "• *ፋክቱርና ደረሰኝ (Invoice & Receipt):* የተሸጡ ዕቃዎችን፣ ዋጋንና የታክስ ዝርዝርን የያዘ ለደንበኛ የሚሰጥ ኦፊሴላዊ የሽያጭ ማረጋገጫ ሰነድ ነው።",
+      "• *የጨረታ ሰነድ (Estimate/Quote):* ሽያጭ ከመፈጸሙ በፊት ለደንበኛ የሚሰጥ የዋጋ ማቅረቢያ ማስታወሻ ነው።",
+      "",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "የሱቁን የዕለት ተዕለት ሽያጭ በአስተማማኝ ሁኔታ ይከታተላል። ደንበኞች በምን እንደከፈሉ (ካሽ፣ ሲቢኢ፣ ቴሌብር) በግልጽ ያስቀምጣል፣ እንዲሁም ፋክቱርና ደረሰኞችን በ WhatsApp በቀጥታ ለመላክ ያስችላል። የ ERCA ደምቦችን ሙሉ በሙሉ ያሟላል።",
+    ].join("\n"),
+    guide_en: [
+      "🧾 *Invoices & Receipts — Guide*",
+      "",
+      "📌 *Step-by-Step Guide:*",
+      "1. Go to 'Invoices & Receipts' (Sales) and click '+ New Receipt'.",
+      "2. Select a customer and add the items or services sold from your stock.",
+      "3. The system automatically calculates the 15% VAT; click 'Save' to issue the official invoice and receipt.",
+      "4. Use '📋 Estimates/Quotes' to issue price offers before actual sales.",
+      "",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Sales:* Total business revenue earned from selling items or services to customers.",
+      "• *Invoice & Receipt:* The official document issued to customers showing items bought, prices, and tax breakdown.",
+      "• *Estimate/Quote:* A preliminary price offer sent to a customer before confirming a sale.",
+      "",
+      "💡 *How this section helps:*",
+      "Tracks daily sales performance, logs payment methods (Cash, CBE, Telebirr), and allows you to send digital invoices and receipts via WhatsApp. Fully ERCA compliant.",
+    ].join("\n"),
+  },
+
+  // 3. Expenses
   expenses: {
     emoji: "📤",
-    title_am: "ወጪዎች",
+    title_am: "ወጪዎች (Expenses)",
     title_en: "Expenses",
     video:    YOUTUBE,
     guide_am: [
       "📤 *ወጪዎች — መመሪያ*",
       "",
-      "📌 *ወጪ ለመቅዳት:*",
-      "1. \'ወጪዎች\' ሞጁል ክፈት",
-      "2. \'+ ወጪ\' ቁልፍ ተጫን",
-      "3. መጠን ፣ መግለጫ ፣ ዓይነት ጻፍ",
-      "4. ታክስ ዓይነት ምረጥ:",
-      "   • ምንም ታክስ",
-      "   • WHT 2% — ዕቃዎች",
-      "   • WHT 3% — አገልግሎቶች",
-      "   • VAT ግቤት ክሬዲት",
-      "5. \'አስቀምጥ\' ቁልፍ ተጫን",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'ወጪዎች' (Expenses) ገጽ በመግባት '+ አዲስ ወጪ' የሚለውን ቁልፍ ይጫኑ።",
+      "2. የወጪውን መጠን፣ ዝርዝር መግለጫ እና የወጪ ምድቡን (ለምሳሌ፡ ኪራይ፣ ግዢ) ያስገቡ።",
+      "3. የታክስ ዓይነት ይምረጡ (WHT 2% ለዕቃ፣ 3% ለአገልግሎት ወይም የ VAT ግቤት) እና 'አስቀምጥ' የሚለውን ይጫኑ።",
       "",
-      "📌 *WHT ምንድን ነው?*",
-      "• Withholding Tax = ከምንከፍለው ቀንሰን ለ ERCA",
-      "• ዕቃ: 2% ፣ አገልግሎት: 3%",
-      "• አቅራቢው ቀሪውን ብቻ ይቀበላል",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *የንግድ ወጪ (Expense):* ሱቁን ለማንቀሳቀስ (ለቤት ኪራይ, ለዕቃ መግዣ, ለሠራተኛ) የሚወጣ ማንኛውም ገንዘብ ነው።",
+      "• *የተቀናሽ ታክስ (Withholding Tax - WHT):* ከአቅራቢዎች ላይ ቀንሰን ለገቢዎች (ERCA) የምናስገባው ህጋዊ ታክስ ነው። (ዕቃ 2%፣ አገልግሎት 3%)።",
       "",
-      "⏰ WHT ለ ERCA ወር 25ኛ ቀን ይቀርባል",
-      "⏰ VAT ለ ERCA ወር 25ኛ ቀን ይቀርባል",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "የንግድዎ ገንዘብ የት ላይ እንደሚወጣ በትክክል ያሳያል። ወርሃዊ የ VAT እና WHT ታክስ መግለጫዎችን በየወሩ 25ኛ ቀን ለ ERCA ያለ ምንም መዘግየት በሰዓቱ ለማቅረብ ይረዳል።",
     ].join("\n"),
     guide_en: [
       "📤 *Expenses — Guide*",
       "",
-      "📌 *Record an Expense:*",
-      "1. Open 'Expenses' module",
-      "2. Tap '+ Expense'",
-      "3. Enter amount, description, account category",
-      "4. Choose tax type:",
-      "   • No tax",
-      "   • WHT 2% — goods",
-      "   • WHT 3% — services",
-      "   • VAT input credit",
-      "5. Tap 'Save'",
+      "📌 *Step-by-Step Guide:*",
+      "1. Go to the 'Expenses' section and tap '+ New Expense'.",
+      "2. Enter the amount, description, and expense category (e.g., Rent, Purchasing).",
+      "3. Select the tax type (WHT 2% for goods, 3% for services, or VAT input credit) and tap 'Save'.",
       "",
-      "📌 *What is WHT?*",
-      "• Withholding Tax = deducted before paying supplier",
-      "• Goods: 2%   Services: 3%",
-      "• Supplier receives the net amount",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Expense:* Any money spent to run the daily business operations (rent, purchasing stock, utility bills).",
+      "• *Withholding Tax (WHT):* Tax deducted at source from suppliers and remitted to ERCA (Goods 2%, Services 3%).",
       "",
-      "⏰ WHT due to ERCA by the 25th monthly",
-      "⏰ VAT due to ERCA by the 25th monthly",
+      "💡 *How this section helps:*",
+      "Provides clear visibility into business cash outflows. Helps you prepare and file VAT and WHT reports accurately to ERCA by the 25th of every month.",
     ].join("\n"),
   },
 
-  payroll: {
-    emoji: "💰",
-    title_am: "ደሞዝ & ሰራተኞች",
-    title_en: "Payroll & HR",
-    video:    YOUTUBE,
-    guide_am: [
-      "💰 *ደሞዝ & ሰራተኞች — መመሪያ*",
-      "",
-      "📌 *ደሞዝ ለማሰራ:*",
-      "1. \'ደሞዝ\' ሞጁል ክፈት",
-      "2. ሰራተኛ ምረጥ",
-      "3. ጠቅላላ ደሞዝ አስገባ",
-      "4. ስርዓቱ ሰምጦ ያሰላል:",
-      "   • PIT (ገቢ ታክስ)",
-      "   • ጡረታ 7% (ሰራተኛ)",
-      "   • ጡረታ 11% (ቀጣሪ)",
-      "   • ተጣሪ ደሞዝ",
-      "",
-      "📊 *PIT ዕርከኖች (Ethiopian):*",
-      "• 0 – 600         → 0%",
-      "• 601 – 1,650     → 10%",
-      "• 1,651 – 3,200   → 15%",
-      "• 3,201 – 5,250   → 20%",
-      "• 5,251 – 7,800   → 25%",
-      "• 7,801 – 10,900  → 30%",
-      "• 10,901+         → 35%",
-      "",
-      "📌 *ምሳሌ (ጠቅላላ ETB 10,000):*",
-      "• PIT:         ETB 1,445",
-      "• ጡረታ 7%:    ETB 700",
-      "• ተጣሪ:        ETB 7,855",
-      "• ቀጣሪ ጡረታ:  ETB 1,100",
-      "",
-      "⏰ ጡረታ ለ PSSSA ወር 30ኛ ቀን ይቀርባል",
-    ].join("\n"),
-    guide_en: [
-      "💰 *Payroll & HR — Guide*",
-      "",
-      "📌 *Run Payroll:*",
-      "1. Open 'Payroll' module",
-      "2. Select employee",
-      "3. Enter gross salary",
-      "4. System auto-calculates:",
-      "   • PIT (Personal Income Tax)",
-      "   • Pension 7% (employee deduction)",
-      "   • Pension 11% (employer contribution)",
-      "   • Net salary",
-      "",
-      "📊 *PIT Brackets (Ethiopian):*",
-      "• 0 – 600         → 0%",
-      "• 601 – 1,650     → 10%",
-      "• 1,651 – 3,200   → 15%",
-      "• 3,201 – 5,250   → 20%",
-      "• 5,251 – 7,800   → 25%",
-      "• 7,801 – 10,900  → 30%",
-      "• 10,901+         → 35%",
-      "",
-      "📌 *Example (Gross ETB 10,000):*",
-      "• PIT:            ETB 1,445",
-      "• Pension 7%:     ETB 700",
-      "• Net salary:     ETB 7,855",
-      "• Employer cost:  ETB 11,100 (incl. 11%)",
-      "",
-      "⏰ Pension due to PSSSA by 30th monthly",
-    ].join("\n"),
-  },
-
-  accounting: {
-    emoji: "📓",
-    title_am: "የሒሳብ አያያዝ",
-    title_en: "Accounting",
-    video:    YOUTUBE,
-    guide_am: [
-      "📓 *የሒሳብ አያያዝ — መመሪያ*",
-      "",
-      "📌 *4 ቁልፍ ሞጁሎች:*",
-      "",
-      "🔹 *ሂሳብ ማስታወሻ (Journal)*",
-      "• ድርብ ሂሳብ አያያዝ",
-      "• DR = CR ሊሆን ይገባል",
-      "• 7 ዝግጁ አብነቶች አሉ",
-      "• DRAFT ወይም POST ሁኔታ",
-      "",
-      "🔹 *ዋና ዝርዝር (GL)*",
-      "• ሁሉም ግብይቶች ዝርዝር",
-      "• በጊዜ ወይም ሂሳብ ይፍጉ",
-      "",
-      "🔹 *የሂሳብ ዕቅድ (COA)*",
-      "• 19 ነባሪ ሂሳቦች",
-      "• ASSET · LIABILITY · EQUITY · INCOME · EXPENSE",
-      "• ኮዶች: 1010–6400",
-      "",
-      "🔹 *ሙከራ ሚዛን (TB)*",
-      "• DR vs CR ትክክለኛነት ማረጋገጫ",
-      "",
-      "💡 ERCA Directive 176/2014 ሙሉ ተኳሃኝ",
-      "💡 ማስታወሻ ቁጥር: JRN-2018-0001",
-    ].join("\n"),
-    guide_en: [
-      "📓 *Accounting — Guide*",
-      "",
-      "📌 *4 Key Modules:*",
-      "",
-      "🔹 *Journal*",
-      "• Double-entry bookkeeping",
-      "• DR must equal CR to POST",
-      "• 7 quick-entry templates",
-      "• DRAFT or POSTED status",
-      "",
-      "🔹 *General Ledger (GL)*",
-      "• All transactions per account",
-      "• Filter by date or account",
-      "",
-      "🔹 *Chart of Accounts (COA)*",
-      "• 19 default accounts",
-      "• ASSET · LIABILITY · EQUITY · INCOME · EXPENSE",
-      "• Codes: 1010–6400",
-      "",
-      "🔹 *Trial Balance (TB)*",
-      "• Verify DR = CR across all accounts",
-      "",
-      "💡 ERCA Directive 176/2014 compliant",
-      "💡 Entry numbering: JRN-2018-0001",
-    ].join("\n"),
-  },
-
-  ai: {
-    emoji: "🤖",
-    title_am: "AI Tax Assistant & Tools",
-    title_en: "AI Tax Assistant & Tools",
-    video:    YOUTUBE,
-    guide_am: [
-      "🤖 *AI Tax Assistant & Tools — መመሪያ*",
-      "",
-      "📌 *AI የታክስ ረዳት:*",
-      "• ሁሉንም የ ERCA ጥያቄዎች ይጠይቁ",
-      "• VAT, WHT, PIT, ጡረታ ሁሉ ያብራራል",
-      "• አማርኛ ወይም እንግሊዝኛ ይደግፋል",
-      "• Claude AI ሞዴል ይጠቀማል",
-      "• ኢንተርኔት ሲጠፋ ሎካል ሞዴል አለ",
-      "",
-      "📌 *7 ካልኩሌተሮች:*",
-      "1. VAT 15% — ጨምር / ቀንስ",
-      "2. ደሞዝ / PIT — ተጣሪ ሰምጦ",
-      "3. WHT 2-3% — ምን ይቀነሳል",
-      "4. ትርፍ ዜሮ ነጥብ (Break-Even)",
-      "5. ብድር / Loan (ወርሃዊ ክፍያ)",
-      "6. ትርፍ% / Markup%",
-      "7. ምንዛሬ (USD, EUR, GBP…)",
-      "",
-      "💡 ሁሉም ካልኩሌሽኖች ERCA ደምቦቹን ያሟላሉ",
-      "💡 ካልኩሌተሮቹ ሁሌም ያለ ኢንተርኔት ይሰሩ",
-    ].join("\n"),
-    guide_en: [
-      "🤖 *AI Tax Assistant & Tools — Guide*",
-      "",
-      "📌 *AI Tax Assistant:*",
-      "• Ask any ERCA tax question",
-      "• Explains VAT, WHT, PIT, Pension",
-      "• Supports Amharic & English",
-      "• Powered by Claude AI (claude-sonnet)",
-      "• Local fallback when offline",
-      "",
-      "📌 *7 Calculators:*",
-      "1. VAT 15% — add or extract",
-      "2. Salary / PIT — compute net pay",
-      "3. WHT 2-3% — compute withholding",
-      "4. Break-Even — units & revenue",
-      "5. Loan — monthly repayment",
-      "6. Margin & Markup percentages",
-      "7. Currency (USD, EUR, GBP, SAR…)",
-      "",
-      "💡 All calculations follow ERCA regulations",
-      "💡 Calculators work fully offline",
-    ].join("\n"),
-  },
-
+  // 4. Stock & Suppliers
   stock: {
     emoji: "📦",
-    title_am: "ምርቶች & አቅራቢዎች",
+    title_am: "ምርቶች & አቅራቢዎች (Stock & Suppliers)",
     title_en: "Stock & Suppliers",
     video:    YOUTUBE,
     guide_am: [
       "📦 *ምርቶች & አቅራቢዎች — መመሪያ*",
       "",
-      "📌 *ምርት ለማከል:*",
-      "1. \'ምርቶች\' ሞጁል ክፈት",
-      "2. \'+ ምርት\' ቁልፍ ተጫን",
-      "3. ስም (አማርኛ + እንግሊዝኛ) ፣ ዋጋ ፣ ዝቅተኛ ዋጋ ጻፍ",
-      "4. ዓይነት ምረጥ: ዕቃ ወይም አገልግሎት",
-      "5. ክምችት ጀምሪ (ዕቃ ብቻ)",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'ምርቶች' (Products) ገጽ በመግባት '+ አዲስ ምርት' በሚለው ስም፣ መግዣና መሸጫ ዋጋ ያስገቡ።",
+      "2. መጀመሪያ ላይ ያለዎትን የዕቃ ብዛት (Opening Stock) ይሙሉ—ሽያጭ ሲያካሂዱ ሲስተሙ ራሱ ይቀንሳል።",
+      "3. በ '🏪 አቅራቢዎች' (Suppliers) ክፍል ውስጥ ዕቃ ያበደሩዎትን ነጋዴዎች እና ያለብዎትን ዕዳ (Accounts Payable) ይከታተሉ።",
       "",
-      "📌 *ክምችት ቁጥጥር:*",
-      "• ፋክቱር ሲፈጠር ክምችት ሰምጦ ይቀነሳል",
-      "• POS ሽያጭ ሲደረግ ክምችት ይቀነሳል",
-      "• ዝቅተኛ ምልክት ሲደርስ ማስጠንቀቂያ",
-      "• ዳግም ዕቃ ነጥብ (reorder point) ይቀምጡ",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ክምችት (Stock/Inventory):* በሱቅዎ ውስጥ የሚገኙ ለመሸጥ የተዘጋጁ ዕቃዎች ጠቅላላ ብዛት ነው።",
+      "• *ያልተከፈለ ዕዳ (Accounts Payable - AP):* ከአቅራቢዎች ዕቃ በብድር ገዝተው ገና ያልከፈሉት የገንዘብ መጠን ነው።",
       "",
-      "📌 *አቅራቢዎች:*",
-      "• TIN ፣ ባንክ ፣ ዕዳ (AP) ይከታተሉ",
-      "• WHT: ዕቃ 2% ፣ አገልግሎት 3%",
-      "• ክፍያ ጊዜ: ወዲያው/Net15/Net30/Net60",
-      "",
-      "💡 አገልግሎቶች ምንም ክምችት የላቸውም",
-      "💡 ዕቃ ክምችት ዜሮ ሲሆን POS ይዘጋል",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "በሱቅዎ ውስጥ የትኛው ዕቃ እንደተሸጠ እና የትኛው ሊያልቅ እንደሆነ ያሳውቅዎታል። ዕቃ ሳይታወቅ እንዳይጠፋና ሳይመዘገብ እንዳይወጣ ይከላከላል።",
     ].join("\n"),
     guide_en: [
       "📦 *Stock & Suppliers — Guide*",
       "",
-      "📌 *Add a Product:*",
-      "1. Open 'Products' module",
-      "2. Tap '+ Product'",
-      "3. Enter name (Amharic + English), price, cost",
-      "4. Choose type: Goods or Service",
-      "5. Set opening stock level (goods only)",
+      "📌 *Step-by-Step Guide:*",
+      "1. Open the 'Products' section, tap '+ New Product' and enter name, cost, and selling price.",
+      "2. Set the initial stock level (Opening Stock); the system automatically deducts items as they sell.",
+      "3. Use the '🏪 Suppliers' section to manage vendor details and tracking what you owe.",
       "",
-      "📌 *Stock Control:*",
-      "• Stock deducted automatically on invoice",
-      "• Stock deducted on every POS sale",
-      "• Low-stock notification at reorder point",
-      "• Set custom reorder threshold per product",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Stock/Inventory:* The total quantity of goods currently available in your shop for sale.",
+      "• *Accounts Payable (AP):* The unpaid financial obligations or debts your business owes to its suppliers for goods bought on credit.",
       "",
-      "📌 *Suppliers:*",
-      "• Track TIN, bank account, AP balance",
-      "• WHT rate: Goods 2% · Services 3%",
-      "• Payment terms: Immediate/Net15/Net30/Net60",
-      "",
-      "💡 Services have no stock (stock = null)",
-      "💡 POS blocks items with zero stock",
+      "💡 *How this section helps:*",
+      "Gives real-time visibility into stock levels, alerts you before inventory runs out, and accurately tracks debts owed to suppliers.",
     ].join("\n"),
   },
 
-  reports: {
-    emoji: "📊",
-    title_am: "ሪፖርቶች & ERCA",
-    title_en: "Reports & ERCA",
+  // 5. Accounting
+  accounting: {
+    emoji: "📓",
+    title_am: "የሒሳብ አያያዝ (Ledger & COA)",
+    title_en: "Accounting Modules",
     video:    YOUTUBE,
     guide_am: [
-      "📊 *ሪፖርቶች & ERCA — መመሪያ*",
+      "📓 *የሒሳብ አያያዝ — መመሪያ*",
       "",
-      "📌 *5 ሪፖርት ዓይነቶች:*",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'ጆርናል' (Journal Entries) ገጽ በመግባት የንግድ ግብይቶችን በዴቢት (DR) እና ክሬዲት (CR) ይመዝግቡ።",
+      "2. 'ጠቅላላ ሒሳብ' (General Ledger) ውስጥ ሁሉንም የጆርናል መዝገቦች በአንድ ላይ ያግኙ።",
+      "3. በ 'የሒሳብ ዝርዝር' (Chart of Accounts) እና 'ትራያል ባላንስ' (Trial Balance) አማካኝነት የዴቢት እና ክሬዲት ሚዛን እኩል መሆኑን ያረጋግጡ።",
       "",
-      "🔹 *ማጠቃለያ (Summary)*",
-      "• ተጣሪ ትርፍ/ኪሳራ ዋና ቁጥር",
-      "• 7 ቀን SVG ቻርት",
-      "• ዋና 6 ቁጥሮች",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ድርብ-ግቤት (Double-Entry):* እያንዳንዱ የንግድ እንቅስቃሴ በሁለት ቦታ (በዴቢትና በክሬዲት) እኩል ሆኖ የሚመዘገብበት ህጋዊ የሂሳብ አሰራር ነው።",
+      "• *ትራያል ባላንስ (Trial Balance):* የሁሉም ሂሳቦች ስብስብ ሆኖ የዴቢት እና የክሬዲት ድምር እኩል መሆኑን ማረጋገጫ ሪፖርት ነው።",
       "",
-      "🔹 *ትርፍ & ኪሳራ (P&L)*",
-      "• ሽያጭ vs ወጪ ዝርዝር",
-      "• ወጪ በዓይነት ተደምሮ",
-      "",
-      "🔹 *ሚዛን ዘገባ (Balance Sheet)*",
-      "• ንብረቶች / ዕዳዎች / ካፒታል (COA ላይ ተመሥርቶ)",
-      "",
-      "🔹 *ERCA ሪፖርት*",
-      "• VAT ጠቅላላ ፣ WHT ጠቅላላ ፣ ጡረታ ጠቅላላ",
-      "• ቀን ቆጠራ: VAT/WHT 25ኛ ፣ ጡረታ 30ኛ",
-      "",
-      "🔹 *ክምችት ሪፖርት*",
-      "• ዋጋ ጠቅላላ ፣ ዝቅተኛ ዝርዝር",
-      "",
-      "💡 ዘመን: ዛሬ / 7 ቀን / ወር / ዓመት",
-      "💡 WhatsApp, Email ወይም ፕሪንት ያጋሩ",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "ሱቅዎ በህጋዊ መንገድ የሂሳብ አያያዝ መመሪያ ቁጥር 176/2014 (ERCA Directive) አሟልቶ እንዲራመድ ያደርጋል። በታክስ ኦዲት ወቅት ምንም ስህተት እንዳይገኝ የሂሳብ ሚዛኑን ይጠብቃል።",
     ].join("\n"),
     guide_en: [
-      "📊 *Reports & ERCA — Guide*",
+      "📓 *Accounting — Guide*",
       "",
-      "📌 *5 Report Types:*",
+      "📌 *Step-by-Step Guide:*",
+      "1. Go to 'Journal' to record financial transactions using Debits (DR) and Credits (CR).",
+      "2. Use 'General Ledger' to view chronological entries across all books.",
+      "3. Open the 'Chart of Accounts (COA)' and 'Trial Balance' to ensure your books balance perfectly (Debit = Credit).",
       "",
-      "🔹 *Summary*",
-      "• Net profit/loss hero number",
-      "• 7-day SVG chart",
-      "• 6 key metrics at a glance",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Double-Entry Bookkeeping:* A standardized accounting system where every transaction has an equal and opposite Debit and Credit entry.",
+      "• *Trial Balance:* A sheet listing balances of all ledger accounts to check mathematical accuracy (Total DR must equal Total CR).",
       "",
-      "🔹 *Profit & Loss (P&L)*",
-      "• Revenue vs expense breakdown",
-      "• Expenses grouped by account category",
-      "",
-      "🔹 *Balance Sheet*",
-      "• Assets / Liabilities / Equity (from COA)",
-      "",
-      "🔹 *ERCA Report*",
-      "• VAT total · WHT total · Pension total",
-      "• Filing calendar: VAT/WHT 25th · Pension 30th",
-      "",
-      "🔹 *Stock Report*",
-      "• Inventory value · low-stock list",
-      "",
-      "💡 Periods: Today / 7 Days / Month / Year",
-      "💡 Export: WhatsApp · Email · Print",
+      "💡 *How this section helps:*",
+      "Ensures full compliance with ERCA Directive 176/2014 for professional business accounting. Keeps your financials clean, structured, and audit-ready.",
     ].join("\n"),
   },
 
+  // 6. Payroll
+  payroll: {
+    emoji: "💰",
+    title_am: "ደሞዝ & ሰራተኞች (Payroll & HR)",
+    title_en: "HR & Payroll",
+    video:    YOUTUBE,
+    guide_am: [
+      "💰 *ደሞዝ & ሰራተኞች — መመሪያ*",
+      "",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'የቡድን አስተዳደር' (Team) በመግባት የሰራተኞችን ዝርዝር፣ ሚና እና ፈቃድ ይመዝግቡ።",
+      "2. ወደ 'ደሞዝ' (Payroll) ገጽ በመግባት የሰራተኛውን 'ጠቅላላ ደሞዝ' (Gross Salary) ያስገቡ።",
+      "3. ሲስተሙ የገቢ ታክስ (PIT) እና የጡረታ መዋጮን በኢትዮጵያ ህግ መሰረት በራስ-ሰር ያሰላል፤ 'አስቀምጥ' በማለት ያጽድቁ።",
+      "",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ጠቅላላ ደሞዝ (Gross Salary):* ምንም ዓይነት የታክስ ወይም የጡረታ ቅናሽ ሳይደረግበት ለሰራተኛው የተወሰነ ሙሉ ወርሃዊ ደሞዝ ነው።",
+      "• *የሰራተኛ ገቢ ታክስ (PIT):* ከሰራተኛው ደሞዝ ላይ ተቀንሶ ለገቢዎች (ERCA) የሚከፈል የደሞዝ ግብር ነው።",
+      "• *የጡረታ መዋጮ:* በህጉ መሰረት ከሰራተኛው 7%፣ ከቀጣሪው ደግሞ 11% ተሰልቶ ለጡረታ ፈንድ (PSSSA) የሚገባ ገንዘብ ነው።",
+      "",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "የሰራተኞችዎን ወርሃዊ ደሞዝ ያለ ምንም ስህተት በኢትዮጵያ የታክስ እርከን መሰረት ያሰላል። በየወሩ 30ኛ ቀን ለጡረታ መስሪያ ቤት የሚከፈለውን መረጃ በትክክል ያዘጋጃል።",
+    ].join("\n"),
+    guide_en: [
+      "💰 *HR & Payroll — Guide*",
+      "",
+      "📌 *Step-by-Step Guide:*",
+      "1. Go to 'Team Management' to add employees and manage their roles/permissions.",
+      "2. Open the 'Payroll' module and enter the employee's 'Gross Salary'.",
+      "3. The system automatically computes PIT (Personal Income Tax) and Pension contributions based on Ethiopian law. Tap 'Save'.",
+      "",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Gross Salary:* The total salary amount agreed upon before any statutory deductions or taxes are applied.",
+      "• *Personal Income Tax (PIT):* The mandatory employment tax deducted from salaries and remitted to ERCA.",
+      "• *Pension (7% / 11%):* Legal retirement contributions (7% deducted from employee, 11% contributed by employer) remitted to PSSSA.",
+      "",
+      "💡 *How this section helps:*",
+      "Automates monthly payroll processing using updated Ethiopian tax brackets. Keeps records flawless and ready for PSSSA filings before the 30th of every month.",
+    ].join("\n"),
+  },
+
+  // 7. Reports
+  reports: {
+    emoji: "📊",
+    title_am: "ሪፖርቶች & ታክስ (Reports & ERCA)",
+    title_en: "Reports & Tax",
+    video:    YOUTUBE,
+    guide_am: [
+      "📊 *ሪፖርቶች & ታክስ — መመሪያ*",
+      "",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'ሪፖርቶች' (Reports) ገጽ በመግባት የጊዜ ገደቡን (ዛሬ፣ ወር፣ ወይም ዓመት) ይምረጡ።",
+      "2. የትርፍና ኪሳራ (P&L) ወይም የክምችት (Stock) ሪፖርቶችን ይመልከቱ።",
+      "3. ለታክስ ፋይሊንግ '🏛 ለ ERCA' የሚለውን ክፍል በመጫን ወርሃዊ የ VAT እና WHT ማጠቃለያዎችን በ PDF ያውርዱ።",
+      "",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ትርፍና ኪሳራ (Profit & Loss):* ከሽያጭ የተገኘው ገቢ ላይ ወጪዎች ተቀንሰው ንግዱ ያተረፈውን ትክክለኛ የተጣራ ትርፍ (Net Profit) የሚያሳይ ዘገባ ነው።",
+      "• *የ ERCA ታክስ ሪፖርት:* ለገቢዎች ባለስልጣን በየወሩ ለማቅረብ ዝግጁ ተደርጎ የሚሰራ የሽያጭና ግዢ የታክስ ማጠቃለያ ነው።",
+      "",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "ሱቅዎ እያተረፈ ወይስ እየከሰረ መሆኑን በግልጽ ያሳያል። በኦዲት ወቅት ለታክስ ኦዲተሮች የሚቀርቡ ህጋዊ ሪፖርቶችን በአንድ ክሊክ በማዘጋጀት ጊዜና ገንዘብዎን ይቆጥባል።",
+    ].join("\n"),
+    guide_en: [
+      "📊 *Reports & Tax — Guide*",
+      "",
+      "📌 *Step-by-Step Guide:*",
+      "1. Open the 'Reports' section and choose your period filter (Today, Month, or Year).",
+      "2. Review the Profit & Loss (P&L) statement or Stock valuation reports.",
+      "3. For tax submission, go to '🏛 For ERCA' to export your monthly VAT and WHT summaries directly into PDF.",
+      "",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Profit & Loss (P&L):* A financial statement summarizing revenues and expenses to show the actual net profit of the business.",
+      "• *ERCA Tax Report:* Generated summaries of taxable sales and input VAT required for monthly standard declarations.",
+      "",
+      "💡 *How this section helps:*",
+      "Helps you evaluate whether your business is growing or losing money. Automatically generates legal, precise reports required during formal ERCA tax auditing.",
+    ].join("\n"),
+  },
+
+  // 8. Branches
   branches: {
     emoji: "🏪",
-    title_am: "ቅርንጫፎች",
-    title_en: "Branches",
+    title_am: "ቅርንጫፎች (Branches Management)",
+    title_en: "Branches Management",
     video:    YOUTUBE,
     guide_am: [
       "🏪 *ቅርንጫፎች — መመሪያ*",
       "",
-      "📌 *ቅርንጫፍ ለማከል:*",
-      "1. \'ቅርንጫፍ አስተዳደር\' ሞጁል ክፈት",
-      "2. \'+ ቅርንጫፍ\' ቁልፍ ተጫን",
-      "3. ስም ፣ ከተማ ፣ አድራሻ ጻፍ",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ 'ቅርንጫፍ አስተዳደር' (Branches) ገጽ ይግቡ።",
+      "2. '+ አዲስ ቅርንጫፍ' የሚለውን በመጫን የቅርንጫፉን ስም፣ ስልክ እና አድራሻ ያስገቡ።",
+      "3. ከላይ ያለውን የሱቅ ምልክት በመጫን ከተለያዩ ቅርንጫፎች መካከል በቀላሉ ይቀያይሩ። ዳታው ለየብቻው ይያዛል።",
       "",
-      "📌 *ቅርንጫፎች መቀያየር:*",
-      "• ሰርጥ ጭኛ ምልክት → ቅርንጫፍ ምረጥ",
-      "• \'ሁሉም ቅርንጫፎች\' — ጥቅል ዕይታ",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ቅርንጫፍ (Branch):* በተለያየ ቦታ የሚገኙ ነገር ግን በአንድ ዋና ድርጅት ወይም ባለowner ስር የሚተዳደሩለያዩ ሱቆች ናቸው።",
+      "• *ገለልተኛ መረጃ (Isolated Data):* የእያንዳንዱ ሱቅ ሽያጭና ክምችት ሳይቀላቀል ለየብቻው በነጻነት የሚቀመጥበት መንገድ ነው።",
       "",
-      "📌 *ፕላን ልኬቶች:*",
-      "• Basic (950 ብር/ወር): 1 ቅርንጫፍ",
-      "• Business (1,750 ብር/ወር): 2 ቅርንጫፎች",
-      "• Enterprise (2,200 ብር/ወር): ሀ ቅርንጫፎች",
-      "",
-      "📌 *ሁሉም ቅርንጫፍ ዕይታ:*",
-      "• ፕሮ + ሁሉም ቅርንጫፎች (>1) ሲኖሩ",
-      "• ጥቅል P&L ያያሉ",
-      "• ማጣሪያ ብቻ — ዳታ አይጻፍም",
-      "",
-      "💡 እያንዳንዱ ቅርንጫፍ ሙሉ ነጻ ዳታ አለው",
-      "💡 Firestore ቁልፍ: b_{id}_invoices",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "ሳይንቀሳቀሱ እና ያሉበት ቦታ ሆነው የሁሉም ሱቆችዎን የዕለት ተዕለት ሽያጭ፣ ወጪ እና ክምችት በአንድ ማዕከላዊ አካውንት ላይ ለመቆጣጠር ያስችሎታል።",
     ].join("\n"),
     guide_en: [
-      "🏪 *Branches — Guide*",
+      "🏪 *Branches Management — Guide*",
       "",
-      "📌 *Add a Branch:*",
-      "1. Open 'Branch Management'",
-      "2. Tap '+ Branch'",
-      "3. Enter name, city, address",
+      "📌 *Step-by-Step Guide:*",
+      "1. Go to 'Branch Management'.",
+      "2. Click '+ New Branch' and fill in the name, phone number, and location details.",
+      "3. Tap the shop icon in the header to instantly switch between different branches with separated data.",
       "",
-      "📌 *Switch Branches:*",
-      "• Header branch icon → select branch",
-      "• 'All Branches' for combined read-only view",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Branch:* Multiple store locations run under a single centralized business account.",
+      "• *Isolated Data:* Information kept separated per store location so sales and stock numbers do not get mixed up.",
       "",
-      "📌 *Plan Limits:*",
-      "• Basic (ETB 950/mo): 1 branch",
-      "• Business (ETB 1,750/mo): 2 branches",
-      "• Enterprise (ETB 2,200/mo): Unlimited",
-      "",
-      "📌 *All Branches View:*",
-      "• Requires Pro + multiple branches",
-      "• Combined P&L across all branches",
-      "• Read-only — no writes in this mode",
-      "",
-      "💡 Each branch has fully isolated data",
-      "💡 Firestore key: b_{id}_invoices",
+      "💡 *How this section helps:*",
+      "Allows multi-shop owners to view individual and consolidated sales, expenses, and stock data from a single dashboard anywhere.",
     ].join("\n"),
   },
+
+  // 9. FAQ
+  faq: {
+    emoji: "❓",
+    title_am: "እርዳታ & የ ERCA ጥያቄዎች (FAQ)",
+    title_en: "Help & FAQ",
+    video:    YOUTUBE,
+    guide_am: [
+      "❓ *እርዳታ & የ ERCA ጥያቄዎች*",
+      "",
+      "📌 *መመሪያ (ተደጋግመው የሚነሱ ጥያቄዎች):*",
+      "• *ጥያቄ:* ኢንተርኔት በሌለበት ቦታ (Offline) አፑ ይሰራል?",
+      "  *መልስ:* አዎ! ፋክቱርና ደረሰኝ ለመቁረጥ፣ ምርት ለመመዝገብ እና ካልኩሌተሮችን ለመጠቀም ኢንተርኔት አያስፈልግም። ዳታው ስልክዎ ላይ ይያዝና ኢንተርኔት ሲያገኝ በራሱ ከዳመና ጋር ይገናኛል።",
+      "• *ጥያቄ:* መረጃዬ በደህንነት ይጠበቃል? ለ ERCA ይላካል?",
+      "  *መልስ:* መረጃዎ ሙሉ በሙሉ ሚስጥራዊነቱ ተጠብቆ በግል ክላውድዎ ላይ ይቀመጣል። የእርስዎን ፍቃድ እና ትዕዛዝ ሳይኖር መረጃዎ ለሶስተኛ ወገንም ሆነ ለ ERCA በፍጹም አይጋራም።",
+      "",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *ክላውድ ባክአፕ (Cloud Backup):* ስልክዎ ቢጠፋ ወይም ቢበላሽ እንኳ መረጃዎ እንዳይጠፋ በኢንተርኔት አማካኝነት ደህንነቱ በተጠበቀ አገልጋይ ላይ ማስቀመጥ ነው።",
+      "",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "አፕሊኬሽኑን ያለምንም ስጋት እንዲጠቀሙ እና ስለ ዳታዎ ደህንነት እንዲሁም ስለ ታክስ አሰራሮች ያሉዎትን ጥያቄዎች በራስዎ ጊዜ ምላሽ እንዲያገኙ ይረዳል።",
+    ].join("\n"),
+    guide_en: [
+      "❓ *Help & FAQ — Guide*",
+      "",
+      "📌 *Step-by-Step Guide (Frequently Asked Questions):*",
+      "• *Q: Does the app work completely offline?*",
+      "  *A:* Yes! You can issue a 'ፋክቱርና ደረሰኝ' (invoice/receipt), check stock, and use calculators without internet. Data auto-syncs to the cloud once connected.",
+      "• *Q: Is my business data safe? Is it automatically shared with ERCA?*",
+      "  *A:* Your financial records are encrypted and private. We never share or expose your data to ERCA or any third party without your explicit export command.",
+      "",
+      "📌 *Vocabulary & Definitions:*",
+      "• *Cloud Sync:* Secure online storage that acts as a live backup, ensuring you can retrieve your records if you lose your phone.",
+      "",
+      "💡 *How this section helps:*",
+      "Provides reassurance regarding data privacy and helps you overcome offline usage barriers, making your operations reliable anywhere.",
+    ].join("\n"),
+  },
+
+  // 10. App Download
+  app_download: {
+    emoji: "📱",
+    title_am: "የመተግበሪያ አወራረድ (Arif Hissab App)",
+    title_en: "Download Arif Hissab App",
+    video:    YOUTUBE,
+    guide_am: [
+      "📱 *የመተግበሪያ አወራረድ — መመሪያ*",
+      "",
+      "📌 *መመሪያ (የደረጃ በደረጃ ማብራሪያ):*",
+      "1. ወደ ኦፊሴላዊ ድረ-ገጻችን [arifhissab.com](https://arifhissab.com) ይግቡ።",
+      "2. እንደ ስልክዎ ዓይነት 'Download for Android' ወይም 'Download for iOS' የሚለውን ይጫኑ።",
+      "3. አፑን ከጫኑ በኋላ በስልክ ቁጥርዎ ፈጣን ምዝገባ በማካሄድ የ 14 ቀን ነጻ የሙከራ ጊዜ (Free Trial) ያግኙ።",
+      "",
+      "📌 *የቃላት መፍቻ (ትራንዛክሽንና ታክስ):*",
+      "• *v9.0 AI Powered:* የቅርብ ጊዜው የመተግበሪያው ስሪት ሲሆን የሂሳብ አያያዝን በ AI የታገዘ እና ከ ERCA ህጎች ጋር ፍጹም የተጣጣመ ያደረገ ስሪት ነው።",
+      "",
+      "💡 *የዚህ ክፍል ጠቀሜታ (ለነጋዴው):*",
+      "የተወሳሰቡ የሂሳብ ደብተሮችን በማስቀረት ሙሉ ሱቅዎን በስልክዎ ላይ በቀላሉ ለመቆጣጠር እና ንግድዎን ወደ ዘመናዊ ዲጂታል አሰራር ለመቀየር የመጀመሪያው እርምጃ ነው።",
+    ].join("\n"),
+    guide_en: [
+      "📱 *Download App — Guide*",
+      "",
+      "📌 *Step-by-Step Guide:*",
+      "1. Visit our official website: [arifhissab.com](https://arifhissab.com).",
+      "2. Click either 'Download for Android' or 'Download for iOS' depending on your smartphone.",
+      "3. Install the app, register with your phone number, and instantly unlock a 14-day premium free trial.",
+      "",
+      "📌 *Vocabulary & Definitions:*",
+      "• *v9.0 AI Powered:* The latest production release featuring built-in AI tax logic and fully compliant ERCA accounting books.",
+      "",
+      "💡 *How this section helps:*",
+      "Replaces messy physical accounting notebooks with a pocket-sized mobile solution, paving your way toward a fully digitalized business.",
+    ].join("\n"),
+  }
 };
 
 // ── Keyboards ────────────────────────────────────────────────────────────────
@@ -485,36 +415,39 @@ function mainMenuKeyboard(lang) {
   const am = lang === "am";
   return Markup.inlineKeyboard([
     [
-      Markup.button.callback("🧾 " + (am ? "ፋክቱር & ሽያጭ"     : "Invoices & Sales"),    "sec_invoices"),
+      Markup.button.callback("🤖 " + (am ? "AI & መሳሪያዎች"      : "AI & Tools"),           "sec_ai_tools"),
+      Markup.button.callback("🧾 " + (am ? "ፋክቱርና ደረሰኝ"     : "Invoices & Receipts"), "sec_invoices"),
+    ],
+    [
       Markup.button.callback("📤 " + (am ? "ወጪዎች"             : "Expenses"),            "sec_expenses"),
+      Markup.button.callback("📦 " + (am ? "ምርቶች & አቅራቢዎች"  : "Stock & Suppliers"),   "sec_stock"),
     ],
     [
-      Markup.button.callback("💰 " + (am ? "ደሞዝ & ሰራተኞች"    : "Payroll & HR"),        "sec_payroll"),
-      Markup.button.callback("📓 " + (am ? "የሒሳብ አያያዝ"       : "Accounting"),          "sec_accounting"),
+      Markup.button.callback("📓 " + (am ? "የሒሳብ አያያዝ"       : "Accounting Books"),    "sec_accounting"),
+      Markup.button.callback("💰 " + (am ? "ደሞዝ & ሰራተኞች"    : "HR & Payroll"),        "sec_payroll"),
     ],
     [
-      Markup.button.callback("🤖 AI Tax Assistant & Tools",                             "sec_ai"),
-      Markup.button.callback("📦 " + (am ? "ምርቶች & አቅራቢዎች" : "Stock & Suppliers"),   "sec_stock"),
-    ],
-    [
-      Markup.button.callback("📊 " + (am ? "ሪፖርቶች & ERCA"   : "Reports & ERCA"),      "sec_reports"),
+      Markup.button.callback("📊 " + (am ? "ሪፖርቶች & ታክስ"     : "Reports & Tax"),       "sec_reports"),
       Markup.button.callback("🏪 " + (am ? "ቅርንጫፎች"          : "Branches"),            "sec_branches"),
     ],
     [
-      Markup.button.callback("🌐 " + (am ? "ቋንቋ ቀይር"        : "Change Language"),      "change_lang"),
-      Markup.button.url("📱 " + (am ? "መተግበሪያ ክፈት"        : "Open App"),             APP_URL),
+      Markup.button.callback("❓ " + (am ? "እርዳታ & FAQ"        : "Help & FAQ"),          "sec_faq"),
+      Markup.button.callback("📱 " + (am ? "አፕሊኬሽን አውርድ"     : "Download App"),        "sec_app_download"),
     ],
     [
-      Markup.button.url("🆘 " + (am ? "ድጋፍ ያግኙ"           : "Get Support"),           SUPPORT),
+      Markup.button.callback("🌐 " + (am ? "ቋንቋ ቀይር"        : "Change Language"),      "change_lang"),
+      Markup.button.url("💻 Website", APP_URL),
+    ],
+    [
+      Markup.button.url("🆘 " + (am ? "ቀጥታ ድጋፍ (Support)"   : "Get Live Support"),    SUPPORT),
     ],
   ]);
 }
 
 function sectionKeyboard(lang, key) {
   const am = lang === "am";
-  const sec = SECTIONS[key];
   return Markup.inlineKeyboard([
-    [Markup.button.url(    am ? "🎥 ቪዲዮ ትምህርት ይመልከቱ" : "🎥 Watch Video Tutorial",  sec.video)],
+    [Markup.button.url(    am ? "🎥 ቪዲዮ ትምህርት ይመልከቱ" : "🎥 Watch Video Tutorial",  SECTIONS[key].video)],
     [Markup.button.callback(am ? "📝 መመሪያ ያንብቡ"       : "📝 Read Step-by-Step Guide", `guide_${key}`)],
     [Markup.button.callback(am ? "🔙 ወደ ዋና ምናሌ"       : "🔙 Back to Main Menu",       "main_menu")],
   ]);
@@ -522,9 +455,8 @@ function sectionKeyboard(lang, key) {
 
 function guideKeyboard(lang, key) {
   const am = lang === "am";
-  const sec = SECTIONS[key];
   return Markup.inlineKeyboard([
-    [Markup.button.url(    am ? "🎥 ቪዲዮ ትምህርት ይመልከቱ" : "🎥 Watch Video Tutorial",  sec.video)],
+    [Markup.button.url(    am ? "🎥 ቪዲዮ ትምህርት ይመልከቱ" : "🎥 Watch Video Tutorial",  SECTIONS[key].video)],
     [Markup.button.callback(am ? "🔙 ወደ ዋና ምናሌ"       : "🔙 Back to Main Menu",       "main_menu")],
   ]);
 }
@@ -532,10 +464,11 @@ function guideKeyboard(lang, key) {
 // ── /start ────────────────────────────────────────────────────────────────────
 bot.start(async (ctx) => {
   await ctx.reply(
-    "🎉 *እንኳን ወደ አሪፍ ሂሳብ በሰላም መጡ\\!*\n" +
-    "Welcome to Arif Hissab Bot\\!\n\n" +
-    "ቋንቋ ይምረጡ / Choose your language:",
-    { parse_mode: "MarkdownV2", ...langKeyboard() }
+    "እንኳን ወደ አሪፍ ሂሳብ በሰላም መጡ! 👋\n" +
+    "አሪፍ ሂሳብ የንግድዎን የሂሳብ አያያዝ፣ የሰራተኞች ደሞዝ እና የዕቃዎች ክምችት ቁጥጥር በቀላሉ የሚያስተናግዱበት ዘመናዊ መድረክ ነው። ይህ መድረክ ስለ ሽያጭ አጠቃቀም፣ ወጪዎች፣ ደሞዝ እና የ ERCA ታክስ አያያዝ አጫጭር የቪዲዮ ትምህርቶችን እና ፈጣን ድጋፍ የሚሰጥበት አውቶማቲክ መድረክ ነው።\n\n" +
+    "ለመጀመር የሚፈልጉትን የስራ ክፍል ከታች ካለው ማውጫ (Menu) ላይ ይምረጡ፦\n\n" +
+    "🌐 ቋንቋ ይምረጡ / Choose your language:",
+    { parse_mode: "Markdown", ...langKeyboard() }
   );
 });
 
@@ -545,8 +478,8 @@ bot.command("menu", async (ctx) => {
   const am = lang === "am";
   await ctx.reply(
     am
-      ? "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ*\n\nምን ለማወቅ ይፈልጋሉ? ክፍሉን ይምረጡ:"
-      : "🏠 *Main Menu — Arif Hissab*\n\nWhich section would you like to learn about?",
+      ? "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ v9.0*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦"
+      : "🏠 *Main Menu — Arif Hissab v9.0*\n\nPlease select the module you want to learn about:",
     { parse_mode: "Markdown", ...mainMenuKeyboard(lang) }
   );
 });
@@ -557,19 +490,17 @@ bot.command("help", async (ctx) => {
   const am = lang === "am";
   await ctx.reply(
     am
-      ? "❓ *እርዳታ — አሪፍ ሂሳብ ቦት*\n\n" +
-        "/start — እንደ አዲስ ጀምር\n" +
-        "/menu  — ዋና ምናሌ ክፈት\n" +
-        "/help  — ይህ ዝርዝር\n\n" +
-        "ሁሉም ክፍሎቹ ከዋና ምናሌ ይገኛሉ።\n\n" +
-        "📱 መተግበሪያ: " + APP_URL + "\n" +
-        "🆘 ድጋፍ: " + SUPPORT
+      ? "❓ *እርዳታ — አሪፍ ሂሳብ*\n\n" +
+        "/start — ቦቱን እንደገና ለመጀመር\n" +
+        "/menu  — ዋናውን ማውጫ ለመክፈት\n" +
+        "/help  — ይህንን የእርዳታ መልዕክት ለማየት\n\n" +
+        "📱 መተግበሪያ ድረ-ገጽ: " + APP_URL + "\n" +
+        "🆘 ቀጥታ የቴክኒክ ድጋፍ: " + SUPPORT
       : "❓ *Help — Arif Hissab Bot*\n\n" +
-        "/start — Restart bot\n" +
-        "/menu  — Open main menu\n" +
-        "/help  — This help message\n\n" +
-        "All sections are available from the main menu.\n\n" +
-        "📱 App: " + APP_URL + "\n" +
+        "/start — Restart the bot\n" +
+        "/menu  — Open the main dashboard\n" +
+        "/help  — Show this help text\n\n" +
+        "📱 Website: " + APP_URL + "\n" +
         "🆘 Support: " + SUPPORT,
     { parse_mode: "Markdown" }
   );
@@ -578,9 +509,9 @@ bot.command("help", async (ctx) => {
 // ── Language callbacks ────────────────────────────────────────────────────────
 bot.action("lang_am", async (ctx) => {
   setLang(ctx.from.id, "am");
-  await ctx.answerCbQuery("አማርኛ ተምርጧል ✓");
+  await ctx.answerCbQuery("አማርኛ ተመርጧል ✓");
   await ctx.editMessageText(
-    "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ*\n\nምን ለማወቅ ይፈልጋሉ? ክፍሉን ይምረጡ:",
+    "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ v9.0*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦",
     { parse_mode: "Markdown", ...mainMenuKeyboard("am") }
   );
 });
@@ -589,7 +520,7 @@ bot.action("lang_en", async (ctx) => {
   setLang(ctx.from.id, "en");
   await ctx.answerCbQuery("English selected ✓");
   await ctx.editMessageText(
-    "🏠 *Main Menu — Arif Hissab*\n\nWhich section would you like to learn about?",
+    "🏠 *Main Menu — Arif Hissab v9.0*\n\nPlease select the module you want to learn about:",
     { parse_mode: "Markdown", ...mainMenuKeyboard("en") }
   );
 });
@@ -609,36 +540,34 @@ bot.action("main_menu", async (ctx) => {
   await ctx.answerCbQuery();
   await ctx.editMessageText(
     am
-      ? "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ*\n\nምን ለማወቅ ይፈልጋሉ? ክፍሉን ይምረጡ:"
-      : "🏠 *Main Menu — Arif Hissab*\n\nWhich section would you like to learn about?",
+      ? "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ v9.0*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦"
+      : "🏠 *Main Menu — Arif Hissab v9.0*\n\nPlease select the module you want to learn about:",
     { parse_mode: "Markdown", ...mainMenuKeyboard(lang) }
   );
 });
 
-// ── Section + Guide callbacks (generated for all 8 sections) ─────────────────
+// ── Section + Guide callbacks (generated dynamically) ────────────────────────
 Object.keys(SECTIONS).forEach((key) => {
   const sec = SECTIONS[key];
 
-  // Section landing → shows Video + Guide + Back
   bot.action(`sec_${key}`, async (ctx) => {
     const lang = getLang(ctx);
     const am   = lang === "am";
     const title = am ? sec.title_am : sec.title_en;
     await ctx.answerCbQuery();
     await ctx.editMessageText(
-      `${sec.emoji} *${title}*\n\n${am ? "ምን ለማወቅ ይፈልጋሉ?" : "What would you like to know?"}`,
+      `${sec.emoji} *${title}*\n\n${am ? "ምን ማወቅ ይፈልጋሉ? ከታች ካሉት አማራጮች ይምረጡ፦" : "What would you like to explore? Choose an option:"}`,
       { parse_mode: "Markdown", ...sectionKeyboard(lang, key) }
     );
   });
 
-  // Guide → shows full step-by-step content + Video + Back
   bot.action(`guide_${key}`, async (ctx) => {
     const lang = getLang(ctx);
     const am   = lang === "am";
     await ctx.answerCbQuery();
     await ctx.editMessageText(
       am ? sec.guide_am : sec.guide_en,
-      { parse_mode: "Markdown", ...guideKeyboard(lang, key) }
+      { parse_mode: "Markdown", ...guideKeyboard(lang, key), disable_web_page_preview: true }
     );
   });
 });
@@ -649,8 +578,8 @@ bot.on("text", async (ctx) => {
   const am   = lang === "am";
   await ctx.reply(
     am
-      ? "📋 ከዚህ በታች ያሉ ምናሌዎቹን ለመድረስ /menu ይጻፉ ወይም ቁልፍ ይጫኑ:"
-      : "📋 Type /menu or press the button to browse all sections:",
+      ? "📋 እባክዎ መመሪያዎቹን ለመክፈት የ /menu ትዕዛዝን ይጻፉ ወይም ከታች ያሉትን ቁልፎች ይጫኑ፦"
+      : "📋 Please type /menu or use the buttons below to navigate through the app guides:",
     { parse_mode: "Markdown", ...mainMenuKeyboard(lang) }
   );
 });
@@ -669,9 +598,12 @@ bot.launch()
       { command: "menu",  description: "ዋና ማውጫ / Main Menu" },
       { command: "help",  description: "እርዳታ / Help" },
     ]);
-    console.log("✅ Bot commands menu updated");
+    console.log("✅ Telegram Bot commands menu synchronized");
   })
-  .catch((err) => { console.error("❌ Failed to start bot:", err); process.exit(1); });
+  .catch((err) => { 
+    console.error("❌ Failed to start bot:", err); 
+    process.exit(1); 
+  });
 
 process.once("SIGINT",  () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
