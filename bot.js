@@ -76,7 +76,7 @@ const SECTIONS = {
     guide_am: [
       "📤 *ክፍል 02: ወጪ (Expenses)*",
       "",
-      "ℹ️ *ምን ይሰራል:*",
+      "ℹ️ *ወጪ ሲባል ምን ለማለት ነው:*",
       "ንግድዎ የሚያወጣቸውን ማናቸውንም ክፍያዎች (ኪራይ፣ ደሞዝ፣ ግዢዎች፣ መገልገያዎች እና ሌሎችንም) ይመዘግባል — እና በክፍያው ላይ የሚፈለገውን ማንኛውንም የተያዘ ታክስ (WHT) ወይም የተአታ ግብዓት (VAT Input) በራስ-ሰር ያሰላል።",
       "",
       "📌 *ደረጃ በደረጃ መመሪያ:*",
@@ -622,7 +622,7 @@ function sectionKeyboard(lang, key) {
   return Markup.inlineKeyboard([
     [Markup.button.url(am ? "🎥 ቪዲዮ ትምህርት ይመልከቱ" : "🎥 Watch Video Tutorial", SECTIONS[key].video)],
     [Markup.button.callback(am ? "📝 መመሪያ ያንብቡ" : "📝 Read Step-by-Step Guide", `guide_${key}`)],
-    [Markup.button.callback(am ? "🔙 ወደ ዋና ምናሌ" : "🔙 Back to Main Menu", "main_menu")],
+    [Markup.button.callback(am ? "🔙 ወደ ዋና ማውጫ" : "🔙 Back to Main Menu", "main_menu")],
   ]);
 }
 
@@ -630,7 +630,7 @@ function guideKeyboard(lang, key) {
   const am = lang === "am";
   return Markup.inlineKeyboard([
     [Markup.button.url(am ? "🎥 ቪዲዮ ትምህርት ይመልከቱ" : "🎥 Watch Video Tutorial", SECTIONS[key].video)],
-    [Markup.button.callback(am ? "🔙 ወደ ዋና ምናሌ" : "🔙 Back to Main Menu", "main_menu")],
+    [Markup.button.callback(am ? "🔙 ወደ ዋና ማውጫ" : "🔙 Back to Main Menu", "main_menu")],
   ]);
 }
 
@@ -638,7 +638,7 @@ function guideKeyboard(lang, key) {
 bot.start(async (ctx) => {
   await ctx.reply(
     "እንኳን ወደ አሪፍ ሂሳብ በሰላም መጡ! 👋\n" +
-    "Arif Hissab Complete Guide — Prepared 2026-07-08.\n\n" +
+    "Arif Hissab Complete Guide.\n\n" +
     "አሪፍ ሂሳብ የንግድዎን የሂሳብ አያያዝ፣ የሰራተኞች ደሞዝ እና የዕቃዎች ክምችት ቁጥጥር በቀላሉ የሚያስተናግዱበት ዘመናዊ መድረክ ነው።\n\n" +
     "🌐 ቋንቋ ይምረጡ / Choose your language:",
     { parse_mode: "Markdown", ...langKeyboard() }
@@ -651,7 +651,7 @@ bot.command("menu", async (ctx) => {
   const am = lang === "am";
   await ctx.reply(
     am
-      ? "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ (17 ክፍሎች)*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦"
+      ? "🏠 *ዋና ማውጫ — አሪፍ ሂሳብ (17 ክፍሎች)*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦"
       : "🏠 *Main Menu — Arif Hissab (17 Features)*\n\nPlease select the feature module you want to learn about:",
     { parse_mode: "Markdown", ...mainMenuKeyboard(lang) }
   );
@@ -683,7 +683,7 @@ bot.command("help", async (ctx) => {
 bot.action("lang_am", async (ctx) => {
   setLang(ctx.from.id, "am");
   await ctx.answerCbQuery("አማርኛ ተመርጧል ✓");
-  await safeEditMessageText(ctx, "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ (17 ክፍሎች)*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦", mainMenuKeyboard("am"));
+  await safeEditMessageText(ctx, "🏠 *ዋና ማውጫ — አሪፍ ሂሳብ (17 ክፍሎች)*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦", mainMenuKeyboard("am"));
 });
 
 bot.action("lang_en", async (ctx) => {
@@ -704,7 +704,7 @@ bot.action("main_menu", async (ctx) => {
   await ctx.answerCbQuery();
   await safeEditMessageText(ctx, 
     am
-      ? "🏠 *ዋና ምናሌ — አሪፍ ሂሳብ (17 ክፍሎች)*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦"
+      ? "🏠 *ዋና ማውጫ — አሪፍ ሂሳብ (17 ክፍሎች)*\n\nየመተግበሪያውን አጠቃቀምና መመሪያ ለመረዳት የሚፈልጉትን ክፍል ይምረጡ፦"
       : "🏠 *Main Menu — Arif Hissab (17 Features)*\n\nPlease select the feature module you want to learn about:", 
     mainMenuKeyboard(lang)
   );
